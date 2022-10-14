@@ -1,0 +1,13 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Random;
+
+public class Aleatorios {
+
+	public static void main(String[] args) {
+		BufferedReader berr = new BufferedReader(new InputStreamReader(System.in));
+		Random num = new Random();
+		System.out.println(num.nextInt(10));
+	}
+
+}
