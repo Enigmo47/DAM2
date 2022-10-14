@@ -19,12 +19,14 @@ public static final String NOMBRE_FICHERO_LIBROS = "data/libros_sec.dat";
 		try {
 			flujoEntrada = new ObjectInputStream(new FileInputStream(NOMBRE_FICHERO_LIBROS));
 			while (!finalFichero) {
-				Libro libro = (Libro) flujoEntrada.readObject();
-				listaEscritores.add(libro);
+				try {
+					Libro libro = (Libro) flujoEntrada.readObject();
+					listaEscritores.add(libro);
+				}
+				catch (EOFException eofe) {
+					finalFichero = true;
+				}
 			}
-		}
-		catch (EOFException eofe) {	
-			finalFichero = true;
 		}
 		finally {
 			if(flujoEntrada != null)
@@ -57,27 +59,27 @@ public static final String NOMBRE_FICHERO_LIBROS = "data/libros_sec.dat";
 		return null;
 	}
 	public static void insertarLibro(int codigo, int codigoEscritor, int añoPublicacion, double precio, String titulo) throws IOException{
-		ObjectOutputStream flujoSalida1 = null;
-		MyObjectOutputStream flujoSalida2 = null;
+		ObjectOutputStream salidaConCabecera = null; // Escribe cabecera
+		MyObjectOutputStream salidaSinCabecera = null; // No escribe cabecera
 		try {
 			File fichero = new File(NOMBRE_FICHERO_LIBROS);
-			// Insertar el libro al final del fichero.
+			// Insertar el libro al final del fichero SIN añadir cabecera.
 			if (fichero.exists()) {
-				flujoSalida2 = new MyObjectOutputStream(new FileOutputStream(fichero, true));
-				flujoSalida2.writeObject(new Libro(codigo,codigoEscritor,añoPublicacion,precio,titulo));
+				salidaSinCabecera = new MyObjectOutputStream(new FileOutputStream(fichero, true));
+				salidaSinCabecera.writeObject(new Libro(codigo,codigoEscritor,añoPublicacion,precio,titulo));
 			}
-			// Crear el fichero e insertar el libro al principio del fichero.
+			// Crear el fichero e insertar el libro al principio del fichero AÑADIENDO cabecera.
 			else {
-				flujoSalida1 = new ObjectOutputStream(new FileOutputStream(fichero));
-				flujoSalida1.writeObject(new Libro(codigo,codigoEscritor,añoPublicacion,precio,titulo));
+				salidaConCabecera = new ObjectOutputStream(new FileOutputStream(fichero));
+				salidaConCabecera.writeObject(new Libro(codigo,codigoEscritor,añoPublicacion,precio,titulo));
 			}
 		}
 		finally {
-			if (flujoSalida1 != null) {
-				flujoSalida1.close();
+			if (salidaConCabecera != null) {
+				salidaConCabecera.close();
 			}
-			if (flujoSalida2 != null) {
-				flujoSalida2.close();
+			if (salidaSinCabecera != null) {
+				salidaSinCabecera.close();
 			}
 		}
 	}

@@ -6,7 +6,7 @@ import entrada.Teclado;
 public class Actividad_3x02 {
 
 	public static void main(String[] args) throws ClassNotFoundException {
-try {
+		try {
 			int opción = -1;
 			do {
 				imprimirMenú();
@@ -22,14 +22,20 @@ try {
 		}
 	}
 	// Opcion 1 en menu
-	public static void insertarLibro(int codigo, int codigoEscritor, int añoPublicacion, double precio, String titulo) throws IOException, ClassNotFoundException {
+	public static void insertarLibro() throws IOException, ClassNotFoundException {
+		int codigo = Teclado.leerEntero("Código:");
 		if(AccesoLibro.existeLibro(codigo) != null)
 			System.out.println("Ya existe otro libro con ese código en el fichero binario.");
 		else {
+			int codigoEscritor = Teclado.leerEntero("Código del escritor:");
+			int añoPublicacion = Teclado.leerEntero("Año de publicacion:");
+			double precio = Teclado.leerReal("Año de publicacion:");
+			String titulo = Teclado.leerCadena("Titulo del libro:");
 			AccesoLibro.insertarLibro(codigo,codigoEscritor,añoPublicacion,precio,titulo);
 			System.out.println("Se ha insertado un escritor en el fichero binario.");
 		}
 	} 
+	
 	// Opcion 2 en menu
 	public static void imprimirFichero() throws IOException, ClassNotFoundException{
 		List <Libro> lista = AccesoLibro.leerLibros();
@@ -50,10 +56,15 @@ try {
 				System.out.println(AccesoLibro.existeLibro(codigo).toString());
 		}
 		// Opcion 4 del menu
-		public static void actualizarLibro(int codigo, int codigoEscritor, int añoPublicacion, double precio, String titulo) throws ClassNotFoundException, IOException {
+		public static void actualizarLibro() throws ClassNotFoundException, IOException {
+			int codigo = Teclado.leerEntero("Código:");
 			if(AccesoLibro.existeLibro(codigo) == null)
 				System.out.println("No existe ningún libro con ese código en el fichero binario.");
 			else {
+				int codigoEscritor = Teclado.leerEntero("Código del escritor:");
+				int añoPublicacion = Teclado.leerEntero("Año de publicacion:");
+				double precio = Teclado.leerReal("Año de publicacion:");
+				String titulo = Teclado.leerCadena("Titulo del libro:");
 				List<Libro> lista = AccesoLibro.eliminarLibro(codigo);
 				AccesoLibro.escribirLibros(lista);
 				AccesoLibro.insertarLibro(codigo,codigoEscritor,añoPublicacion,precio,titulo);
@@ -80,20 +91,11 @@ try {
 	
 	public static void menú(int opción) throws IOException, ClassNotFoundException {
 		int codigo;
-		int codigoEscritor;
-		int añoPublicacion;
-		double precio;
-		String titulo;
 		switch (opción) {
 		case 0:
 			break;
 		case 1: // FUNCIONA
-			codigo = Teclado.leerEntero("Código:");
-			codigoEscritor = Teclado.leerEntero("Código del escritor:");
-			añoPublicacion = Teclado.leerEntero("Año de publicacion:");
-			precio = Teclado.leerReal("Año de publicacion:");
-			titulo = Teclado.leerCadena("Titulo del libro:");
-			insertarLibro(codigo,codigoEscritor,añoPublicacion,precio,titulo);
+			insertarLibro();
 			break;
 		case 2: // FUNCIONA
 			imprimirFichero();
@@ -103,12 +105,7 @@ try {
 			consultarLibro(codigo);
 			break;
 		case 4: // 
-			codigo = Teclado.leerEntero("Código:");
-			codigoEscritor = Teclado.leerEntero("Código del escritor:");
-			añoPublicacion = Teclado.leerEntero("Año de publicacion:");
-			precio = Teclado.leerReal("Año de publicacion:");
-			titulo = Teclado.leerCadena("Titulo del libro:");
-			actualizarLibro(codigo,codigoEscritor,añoPublicacion,precio,titulo);
+			actualizarLibro();
 			break;
 		case 5: //
 			codigo = Teclado.leerEntero("Código empleado:");

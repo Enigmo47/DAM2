@@ -55,10 +55,17 @@ preguntas = ["¿Cuál es el río más largo de España? (Respuesta = Ebro)",
 respuestasPreguntas = ["Ebro","Tajo","Amazonas","Teide","Everest","Pacifico","Rusia","India"]
 
 def imprimirSalas():
+    """
+    Imprime la lista de salas
+    """
     print("Salas restantes: ")
     for l in salas:
         print(l)
+
 def reiniciarSalas():
+    """
+    Rellena la lista salas con las 4 salas originales
+    """
     salas.clear()
     salas.append("Norte")
     salas.append("Sur")
@@ -66,13 +73,32 @@ def reiniciarSalas():
     salas.append("Oeste")
 
 def perder():
+    """
+    descripcion: Imprime mensaje para volver a hacer una prueba
+    output: String "S" o "N" que indica si se intenta la sala de nuevo
+
+    """
     return input("Quieres volver a intentarlo? S/N: ")
 
 def salaMedio():
+    """
+    Imprime mensaje de que vuelves a la sala del medio
+    """
     print("Volviendo a la sala del medio...")
+
 def nuevaSala():
+    """
+    descripcion: Pide nueva sala a la que ir
+    output: Nombre de la sala a la que entrar
+    """
     return input("Elija nueva sala:")
+
 def salaNorte():
+    """
+    descripcion: Juego de la sala norte en la que te enfrentas a un monstruo en una pelea.
+    Si mueres hay que empezar el juego de cero. Hay que vencer al monstruo para superar la sala.
+    output: String "S" o "N" que indica si se sale de la sala o no
+    """
     perderBooleano = False
     while(perderBooleano == False):
         ataque = randint(0,100)
@@ -94,7 +120,12 @@ def salaNorte():
                 return "N"
         else:
             return "N"
+
 def salaSur():
+    """
+    descripcion: Juego de la sala sur en la que hay que acertar un acertijo para poder superar la sala.
+    output: String "S" o "N" que indica si se sale de la sala o no.
+    """
     numAcertijo = randint(0,9)
     print(str(acertijos[numAcertijo]))
     respuesta = input("Respuesta: ")
@@ -104,7 +135,12 @@ def salaSur():
         return "N"
     else:
         return perder()
+
 def salaEste():
+    """
+    descripcion: Juego de la sala este en el que hay que conseguir abrir un cofre para superar la sala.
+    output: String "S" o "N" que indica si se sale de la sala o no.
+    """
     numero = randint(1,100)
     print(numero)
     if(numero > 60):
@@ -117,6 +153,10 @@ def salaEste():
         return perder()
 
 def salaOeste():
+    """
+    descripcion: Juego de la sala oeste en el que hay que responder a una pregunta para superar la sala.
+    output: String "S" o "N" que indica si se sale de la sala o no
+    """
     numPregunta = randint(0,7)
     print(str(preguntas[numPregunta]))
     respuesta = input("Respuesta: ")
@@ -126,6 +166,8 @@ def salaOeste():
         return "N"
     else:
         return perder()
+
+        
 while jugar == True:
     describirJuego()
     while(len(salas) > 0):

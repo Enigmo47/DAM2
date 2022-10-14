@@ -22,12 +22,14 @@ public class AccesoEscritor {
 		try {
 			flujoEntrada = new ObjectInputStream(new FileInputStream(NOMBRE_FICHERO_ESCRITORES));
 			while (!finalFichero) {
-				Escritor escritor = (Escritor) flujoEntrada.readObject();
-				listaEscritores.add(escritor);
+				try {
+					Escritor escritor = (Escritor) flujoEntrada.readObject();
+					listaEscritores.add(escritor);
+				}
+				catch (EOFException eofe) {	
+					finalFichero = true;
+				}
 			}
-		}
-		catch (EOFException eofe) {	
-			finalFichero = true;
 		}
 		finally {
 			if(flujoEntrada != null)
@@ -63,27 +65,27 @@ public class AccesoEscritor {
 		return lista.size();
 	}
 	public static void insertarEscritor(int código, String nombre, String nacimiento, String nacionalidad) throws IOException{
-		ObjectOutputStream flujoSalida1 = null;
-		MyObjectOutputStream flujoSalida2 = null;
+		ObjectOutputStream salidaConCabecera = null; // Escribe cabecera
+		MyObjectOutputStream salidaSinCabecera = null; // No escribe cabecera
 		try {
 			File fichero = new File(NOMBRE_FICHERO_ESCRITORES);
 			// Insertar el escritor al final del fichero.
 			if (fichero.exists()) {
-				flujoSalida2 = new MyObjectOutputStream(new FileOutputStream(fichero, true));
-				flujoSalida2.writeObject(new Escritor(código,nombre,nacimiento,nacionalidad));
+				salidaSinCabecera = new MyObjectOutputStream(new FileOutputStream(fichero, true));
+				salidaSinCabecera.writeObject(new Escritor(código,nombre,nacimiento,nacionalidad));
 			}
 			// Crear el fichero e insertar el escritor al principio del fichero.
 			else {
-				flujoSalida1 = new ObjectOutputStream(new FileOutputStream(fichero));
-				flujoSalida1.writeObject(new Escritor(código,nombre,nacimiento,nacionalidad));
+				salidaConCabecera = new ObjectOutputStream(new FileOutputStream(fichero));
+				salidaConCabecera.writeObject(new Escritor(código,nombre,nacimiento,nacionalidad));
 			}
 		}
 		finally {
-			if (flujoSalida1 != null) {
-				flujoSalida1.close();
+			if (salidaConCabecera != null) {
+				salidaConCabecera.close();
 			}
-			if (flujoSalida2 != null) {
-				flujoSalida2.close();
+			if (salidaSinCabecera != null) {
+				salidaSinCabecera.close();
 			}
 		}
 	}
