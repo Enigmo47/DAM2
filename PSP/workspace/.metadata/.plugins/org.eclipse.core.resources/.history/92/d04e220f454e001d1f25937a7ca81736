@@ -1,0 +1,10 @@
+package actividad_1x03;
+
+public class PasaMayusculas {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
