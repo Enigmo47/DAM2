@@ -28,6 +28,59 @@ Un metodo que describa cómo funciona el juego
 
 from random import randint
 import time
+muerto = False
+defensas = ["Te lanzas a abofetear al temible monstruo pero resbalas con una cascara de platano y fallas",
+            "Le lanzas una piedra al jefe pero parece que no le ha afectado mucho",
+            "Le haces un calvo, parece que se tapa los ojos un segundo pero solo se enfada mas"
+            "Agarras la espada pero se te cae",
+            "Coges un gran martillo se lo lanzas, dandole pero no debilitandolo",
+            "Logras alcanzar una flecha, disparando y rozando pero no matando al monstruo",
+            "Sacas tus dagas y corres hasta la bestia, te tropiezas con una piedra que vuela hacia el y lo mata",
+            "Aparece Eric el delegado y se lanza al monstruo. Para cuando acaba con el, el monstruo es irreconocible",
+            "Haces un triple salto mortal cayendo sobre los hombros del deje y arrancandole la cabeza",
+            "Invoca a Jesucristo que abre un portal y devuelve al monstruo y le grita ATRAS SATANAS POR AQUI NO VUELVAS MAS"]
+ataques = ["Te intenta pinchar con su tridente de las delicias pero falla",
+            "Invoca 5 cabras satanicas que te embisten, pero aguantas",
+            "Viene un ataque mortal, pero Eric el delegado aparece en ultimo momento y te salva",
+            "Sus garras casi te rozan, pero consigues evadirlas gracias a las clases de acrosport del cole",
+            "Dibuja un pentagrama sobre el suelo, de ahi sale la play 5. Decides venderle tu alma por ella."]
+
+def imprimeAtaque(numAtaque):
+    if(numAtaque <= 25):
+        print(str(ataques[0]))
+    elif(numAtaque <= 45):
+        print(str(ataques[1]))
+    elif(numAtaque <= 60):
+        print(str(ataques[2]))
+    elif(numAtaque < 90):
+        print(str(ataques[3]))
+    elif(numAtaque <= 100):
+        print(str(ataques[4]))
+   
+
+def imprimeDefensa(numDefensa):
+    if(numDefensa <= 10):
+        print(str(acertijos[0]))
+    elif(numDefensa <= 20):
+        print(str(acertijos[1]))
+    elif(numDefensa <= 30):
+        print(str(acertijos[2]))
+    elif(numDefensa <= 40):
+        print(str(acertijos[3]))
+    elif(numDefensa <= 50):
+        print(str(acertijos[4]))
+    elif(numDefensa < 60):
+        print(str(acertijos[5]))
+    elif(numDefensa <= 70):
+        print(str(acertijos[6]))
+    elif(numDefensa <= 80):
+        print(str(acertijos[7]))
+    elif(numDefensa <= 90):
+        print(str(acertijos[8]))
+    elif(numDefensa <= 20):
+        print(str(acertijos[9]))
+        
+        
 def describirJuego():
     print("Te encuentras en la sala del medio de una mazmorra, rodeado de otras 4 salas. Una al norte, otra al sur, otra al oeste y otra al este. Para lograr salir de la mazmorra debes superar todas las salas con vida.")
 jugar = True
@@ -97,20 +150,21 @@ def salaNorte():
     """
     descripcion: Juego de la sala norte en la que te enfrentas a un monstruo en una pelea.
     Si mueres hay que empezar el juego de cero. Hay que vencer al monstruo para superar la sala.
-    output: String "S" o "N" que indica si se sale de la sala o no
+    output: String "S", "N" o "Muert" que indica si se sale de la sala o no o si has muerto.
     """
     perderBooleano = False
     while(perderBooleano == False):
         ataque = randint(0,100)
         print("Ataque: " + str(ataque))
+        imprimeAtaque(int(ataque))
         if(ataque > 90):
             print("Has muerto por lo que se reinicia el juego.")
-            reiniciarSalas()
-            return perder() # pregunto o no?
+            return "Muerte" #No hace return
         respuesta = input("¿Quieres defenderte? S/N: ")
         if(respuesta == "S"):
             defensa = randint(0,100)
             print("Defensa: " + str(defensa))
+            imprimeDefensa(int(defensa))
             if(defensa < 60):
                 perderBooleano = True
                 print("La defensa ha fallado. Vas a ser atacado de nuevo.")
@@ -168,8 +222,9 @@ def salaOeste():
         return perder()
 
         
-while jugar == True:
+while jugar == True and muerto == False:
     describirJuego()
+    reiniciarSalas()
     while(len(salas) > 0):
         imprimirSalas()
         opcion = input("¿A que sala quieres ir? ")
@@ -177,33 +232,37 @@ while jugar == True:
             if(opcion == "Norte"):
                 print("Aparece un monstruo y te ataca.")
                 while True:
-                    if(salaNorte().upper() == "N"):
+                    if(salaNorte() == "N"):
                         salaMedio()
+                        break
+                    elif(salaNorte() == "Muerte"):
+                        muerto = True
                         break
             if(opcion == "Sur"):
                 print("Para superar esta sala debes acertar un acertijo.")
                 while True:
-                    if(salaSur().upper() == "N"):
+                    if(salaSur() == "N"):
                         salaMedio()
                         break
             if(opcion == "Este"):
                 print("Para superar esta sala hay que conseguir abrir un cofre.")
                 while True:
-                    if(salaEste().upper() == "N"):
+                    if(salaEste() == "N"):
                         salaMedio()
                         break
             if(opcion == "Oeste"):
                 print("Para superar esta sala debes responder bien a una pregunta.")
                 while True:
-                    if(salaOeste().upper() == "N"):
+                    if(salaOeste() == "N"):
                         salaMedio()
                         break
         else:
             print("Esa sala no está disponible. Vuelva a elegir")
-    reiniciar = input("Enhorabuena!! Has ganado! Quieres volver a jugar? S/N: ")
-    if(reiniciar.upper() == "S"):
-        reiniciarSalas()
+    if(muerto == True):
+        print("Has muerto. Quieres volver a intentarlo de nuevo?")
     else:
+        reiniciar = input("Enhorabuena!! Has ganado! Quieres volver a jugar? S/N: ")
+    if(reiniciar != "S"):
         jugar = False
 print("Juego finalizado.")
 
