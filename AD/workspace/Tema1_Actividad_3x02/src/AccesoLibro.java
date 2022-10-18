@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class AccesoLibro {
 public static final String NOMBRE_FICHERO_LIBROS = "data/libros_sec.dat";
@@ -94,4 +95,19 @@ public static final String NOMBRE_FICHERO_LIBROS = "data/libros_sec.dat";
 		}
 		return lista;
 	}
+	/*
+	public static List<Libro> actualizarLibro(int codigo, Libro libro) throws IOException, ClassNotFoundException{
+		List <Libro> lista = leerLibros();
+		ListIterator <Libro> iterador = lista.listIterator();
+		int posicion = 0;
+		while(iterador.hasNext()) {
+			Libro libroIterador = iterador.next();
+			if(libroIterador.getCodigo() == codigo) {
+				posicion = iterador.nextIndex();
+			}
+		}
+		lista.remove(posicion);
+		lista.add(posicion, libro);
+		return lista;
+	}*/
 }

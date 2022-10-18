@@ -29,21 +29,21 @@ Un metodo que describa cómo funciona el juego
 from random import randint
 import time
 muerto = False
-defensas = ["Te lanzas a abofetear al temible monstruo pero resbalas con una cascara de platano y fallas",
-            "Le lanzas una piedra al jefe pero parece que no le ha afectado mucho",
-            "Le haces un calvo, parece que se tapa los ojos un segundo pero solo se enfada mas"
-            "Agarras la espada pero se te cae",
-            "Coges un gran martillo se lo lanzas, dandole pero no debilitandolo",
-            "Logras alcanzar una flecha, disparando y rozando pero no matando al monstruo",
-            "Sacas tus dagas y corres hasta la bestia, te tropiezas con una piedra que vuela hacia el y lo mata",
-            "Aparece Eric el delegado y se lanza al monstruo. Para cuando acaba con el, el monstruo es irreconocible",
-            "Haces un triple salto mortal cayendo sobre los hombros del deje y arrancandole la cabeza",
-            "Invoca a Jesucristo que abre un portal y devuelve al monstruo y le grita ATRAS SATANAS POR AQUI NO VUELVAS MAS"]
-ataques = ["Te intenta pinchar con su tridente de las delicias pero falla",
-            "Invoca 5 cabras satanicas que te embisten, pero aguantas",
-            "Viene un ataque mortal, pero Eric el delegado aparece en ultimo momento y te salva",
-            "Sus garras casi te rozan, pero consigues evadirlas gracias a las clases de acrosport del cole",
-            "Dibuja un pentagrama sobre el suelo, de ahi sale la play 5. Decides venderle tu alma por ella."]
+defensas = ["\tTe lanzas a abofetear al temible monstruo pero resbalas con una cascara de platano y fallas",
+            "\tLe lanzas una piedra al jefe pero parece que no le ha afectado mucho",
+            "\tLe haces un calvo, parece que se tapa los ojos un segundo pero solo se enfada mas"
+            "\tAgarras la espada pero se te cae",
+            "\tCoges un gran martillo se lo lanzas, dandole pero no debilitandolo",
+            "\tLogras alcanzar una flecha, disparando y rozando pero no matando al monstruo",
+            "\tSacas tus dagas y corres hasta la bestia, te tropiezas con una piedra que vuela hacia el y lo mata",
+            "\tAparece Eric el delegado y se lanza al monstruo. Para cuando acaba con el, el monstruo es irreconocible",
+            "\tHaces un triple salto mortal cayendo sobre los hombros del jefe y arrancandole la cabeza",
+            "\tInvoca a Jesucristo que abre un portal y devuelve al monstruo y le grita ATRAS SATANAS POR AQUI NO VUELVAS MAS"]
+ataques = ["\tTe intenta pinchar con su tridente de las delicias pero falla",
+            "\tInvoca 5 cabras satanicas que te embisten, pero aguantas",
+            "\tViene un ataque mortal, pero Eric el delegado aparece en ultimo momento y te salva",
+            "\tSus garras casi te rozan, pero consigues evadirlas gracias a las clases de acrosport del cole",
+            "\tDibuja un pentagrama sobre el suelo, de ahi sale la play 5. Decides venderle tu alma por ella."]
 
 def imprimeAtaque(numAtaque):
     if(numAtaque <= 25):
@@ -60,25 +60,25 @@ def imprimeAtaque(numAtaque):
 
 def imprimeDefensa(numDefensa):
     if(numDefensa <= 10):
-        print(str(acertijos[0]))
+        print(str(defensas[0]))
     elif(numDefensa <= 20):
-        print(str(acertijos[1]))
+        print(str(defensas[1]))
     elif(numDefensa <= 30):
-        print(str(acertijos[2]))
+        print(str(defensas[2]))
     elif(numDefensa <= 40):
-        print(str(acertijos[3]))
+        print(str(defensas[3]))
     elif(numDefensa <= 50):
-        print(str(acertijos[4]))
+        print(str(defensas[4]))
     elif(numDefensa < 60):
-        print(str(acertijos[5]))
+        print(str(defensas[5]))
     elif(numDefensa <= 70):
-        print(str(acertijos[6]))
+        print(str(defensas[6]))
     elif(numDefensa <= 80):
-        print(str(acertijos[7]))
+        print(str(defensas[7]))
     elif(numDefensa <= 90):
-        print(str(acertijos[8]))
-    elif(numDefensa <= 20):
-        print(str(acertijos[9]))
+        print(str(defensas[8]))
+    elif(numDefensa <= 100):
+        print(str(defensas[9]))
         
         
 def describirJuego():
@@ -155,15 +155,15 @@ def salaNorte():
     perderBooleano = False
     while(perderBooleano == False):
         ataque = randint(0,100)
-        print("Ataque: " + str(ataque))
+        #print("Ataque: " + str(ataque))
         imprimeAtaque(int(ataque))
         if(ataque > 90):
             print("Has muerto por lo que se reinicia el juego.")
-            return "Muerte" #No hace return
+            return "Muerte"
         respuesta = input("¿Quieres defenderte? S/N: ")
         if(respuesta == "S"):
             defensa = randint(0,100)
-            print("Defensa: " + str(defensa))
+            #print("Defensa: " + str(defensa))
             imprimeDefensa(int(defensa))
             if(defensa < 60):
                 perderBooleano = True
@@ -232,10 +232,11 @@ while jugar == True and muerto == False:
             if(opcion == "Norte"):
                 print("Aparece un monstruo y te ataca.")
                 while True:
-                    if(salaNorte() == "N"):
+                    returnNorte = salaNorte()
+                    if(returnNorte == "N"):
                         salaMedio()
                         break
-                    elif(salaNorte() == "Muerte"):
+                    elif(returnNorte == "Muerte"):
                         muerto = True
                         break
             if(opcion == "Sur"):
