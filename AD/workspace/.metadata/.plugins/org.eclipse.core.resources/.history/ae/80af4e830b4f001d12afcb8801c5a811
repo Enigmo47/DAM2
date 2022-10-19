@@ -1,0 +1,32 @@
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AccesoVideojuegoBinario {
+	public static final String NOMBRE_FICHERO_LIBROS = "data/videojuegos.dat";
+	public static List<Videojuego> leerVideojuegos() throws IOException, ClassNotFoundException{
+		ObjectInputStream flujoEntrada = null;
+		List<Videojuego> listaVideojuegos = new ArrayList<>();
+		boolean finalFichero = false;
+		try {
+			flujoEntrada = new ObjectInputStream(new FileInputStream(NOMBRE_FICHERO_LIBROS));
+			while (!finalFichero) {
+				try {
+					Libro libro = (Libro) flujoEntrada.readObject();
+					listaEscritores.add(libro);
+				}
+				catch (EOFException eofe) {
+					finalFichero = true;
+				}
+			}
+		}
+		finally {
+			if(flujoEntrada != null)
+				flujoEntrada.close();	
+		}
+  		return listaEscritores;
+	}
+}

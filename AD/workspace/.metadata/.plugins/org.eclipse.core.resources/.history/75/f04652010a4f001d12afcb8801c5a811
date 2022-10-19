@@ -1,0 +1,27 @@
+import java.io.IOException;
+import java.io.Serializable;
+
+public class Videojuego implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private static final String SEPARADOR = ";";
+	private int codigo;
+	private String titulo, plataforma;
+	private double precio;
+	public Videojuego(int codigo, String titulo, String plataforma, double precio) throws IOException {
+		this.codigo = codigo;
+		this.titulo = titulo;
+		this.plataforma = plataforma;
+		this.precio = Math.round(precio*100)/100;
+		if(codigo < 0)
+			throw new IOException("El código de empleado debe ser positivo");
+	}
+	public Videojuego(String cadenaAtributos) {
+		String[] datos = cadenaAtributos.split(SEPARADOR);
+		código = Integer.parseInt(datos[0]);
+		if(código < 0)
+			throw new IOException("El código debe ser positivo");
+		nombre = datos[1];
+		ubicación = datos[2];
+	}
+	
+}

@@ -197,7 +197,7 @@ def salaEste():
     """
     numero = randint(1,100)
     print(numero)
-    if(numero > 60):
+    if(numero > 63):
         print("Enhorabuena, has conseguido abrir el cofre")
         salas.remove("Este")
         return "N"

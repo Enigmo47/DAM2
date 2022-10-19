@@ -1,0 +1,4 @@
+
+public class AccesoVideojuegoBinario {
+	public static final String NOMBRE_FICHERO_LIBROS = "data/videojuegos.dat";
+}

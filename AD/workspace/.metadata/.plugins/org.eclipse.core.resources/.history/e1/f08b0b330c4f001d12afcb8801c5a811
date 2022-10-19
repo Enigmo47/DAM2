@@ -1,0 +1,24 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+
+public class AccesoVideojuegoTexto {
+	public static final String NOMBRE_FICHERO_VIDEOJUEGOS = "data/videojuegos.dat";
+	private static void deListaAFichero(List<Videojuego> nuevaLista) throws IOException {
+		
+		List <Videojuego> lista = nuevaLista;
+		BufferedWriter flujoSalida = null;
+		try {
+			flujoSalida = new BufferedWriter(new FileWriter(NOMBRE_FICHERO_VIDEOJUEGOS,true));
+			for(Empleado e: lista) {
+				flujoSalida.write(e.toStringWithSeparators() + "\n");
+			}
+		}
+		finally {
+			if(flujoSalida != null)
+				flujoSalida.close();	
+		}
+	}
+	
+}

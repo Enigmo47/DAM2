@@ -1,0 +1,16 @@
+import java.io.IOException;
+
+public class Videojuego {
+	private int codigo;
+	private String titulo, plataforma;
+	private double precio;
+	public Videojuego(int codigo, String titulo, String plataforma, double precio) throws IOException {
+		this.codigo = codigo;
+		this.titulo = titulo;
+		this.plataforma = plataforma;
+		this.precio = Math.round(precio*100)/100;;
+		if(codigo < 0)
+			throw new IOException("El código de empleado debe ser positivo");
+	}
+	
+}
