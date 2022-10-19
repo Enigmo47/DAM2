@@ -46,6 +46,9 @@ ataques = ["\tTe intenta pinchar con su tridente de las delicias pero falla",
             "\tDibuja un pentagrama sobre el suelo, de ahi sale la play 5. Decides venderle tu alma por ella."]
 
 def imprimeAtaque(numAtaque):
+    """
+    Imprime el ataque correspondiente dependiendo del numero aleatorio de ataque que sale
+    """
     if(numAtaque <= 25):
         print(str(ataques[0]))
     elif(numAtaque <= 45):
@@ -59,6 +62,9 @@ def imprimeAtaque(numAtaque):
    
 
 def imprimeDefensa(numDefensa):
+    """
+    Imprime la defensa correspondiente dependiendo del numero aleatorio de defensa que sale
+    """
     if(numDefensa <= 10):
         print(str(defensas[0]))
     elif(numDefensa <= 20):
