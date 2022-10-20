@@ -1,4 +1,4 @@
-package actividad_1x03;
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,23 +9,24 @@ import java.io.PrintStream;
 public class Mayusculas {
 
 	public static void main(String[] args) {
-		String line = null;
+		String line;
+		File directorio = new File(".\\bin"); //Se indica el directorio en el que está
+		ProcessBuilder pb = new ProcessBuilder("java", "PasaMayusculas");
+		pb.directory(directorio);
 		try {
-			File directorio = new File(".\\bin"); //Se indica el directorio en el que está
-			ProcessBuilder pb = new ProcessBuilder("java", "PasaMayusculas");
-			pb.directory(directorio);
 			Process hijo = pb.start();
 			BufferedReader lectorDelHijo = new BufferedReader(new InputStreamReader(hijo.getInputStream()));
 			PrintStream escritorEnHijo = new PrintStream(hijo.getOutputStream());
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Escribe una linea: ");
+			System.out.print("Escribe una linea: ");
 			String linea = in.readLine();
-			while((linea.compareTo("fin") != 0)) {
-				escritorEnHijo.println(linea); // No es necesario escribir nada
+			while(!linea.equals("fin")) {
+				escritorEnHijo.println(linea);
 				escritorEnHijo.flush(); // Asegura que los datos se han enviado
-				if(!linea.equals("fin")) {
+				if((line = lectorDelHijo.readLine()) != null) {
 					System.out.println(line);
 				}
+				System.out.print("Escribe una linea: ");
 				linea = in.readLine();
 			}
 			hijo.destroy();
