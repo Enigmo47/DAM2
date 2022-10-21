@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -6,43 +7,37 @@ import java.io.PrintStream;
 public class Primos {
 
 	public static void main(String[] args) {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		PrintStream ps = new PrintStream(System.out);
-		String linea;
+		String line;
+		File directorio = new File(".\\bin"); //Se indica el directorio en el que está
+		ProcessBuilder pb = new ProcessBuilder("java", "CalculaPrimos");
+		pb.directory(directorio);
 		try {
-			linea = in.readLine();
-			while(linea != null) {
-				int numero = Integer.parseInt(linea);
-				ps.println(resolverPrimos(numero));
-				ps.flush();
-				linea = in.readLine();
-				
-				
+			Process hijo = pb.start();
+			BufferedReader lectorDelHijo = new BufferedReader(new InputStreamReader(hijo.getInputStream()));
+			PrintStream escritorEnHijo = new PrintStream(hijo.getOutputStream());
+			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Escribe un numero entero: ");
+			int dato = Integer.parseInt(in.readLine());
+			
+			if(dato < 1)
+				throw new NumberFormatException();
+			escritorEnHijo.println(dato);
+			escritorEnHijo.flush(); // Asegura que los datos se han enviado
+			line = lectorDelHijo.readLine();
+			while(line != null) {
+				System.out.println(line);
+				line = lectorDelHijo.readLine();
 			}
+			in.close();
+			hijo.destroy();
+			System.out.println("Finalizado");
 		}
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		catch (NumberFormatException nfe) {
+			System.err.println("Dato introducido no valido");
+		}
+		catch (IOException ex){
+			System.out.println("Error cocurrió durante la ejecución");
 		}
 	}
-	public static boolean esPrimo(int numero) {
-		for(int i = 2; i < numero; i++) {
-			if(numero % i == 0) {
-				return false;
-			}
-		}
-		return true;
-	}
-	public static String resolverPrimos(int numero) {
-		if(esPrimo(numero))
-			return "El numero " + numero + " es primo.";
-		else {
-			String output = "Los numeros primos menores que " + numero + " son:\n";
-			for (int j = 1; j < numero; j++) {
-				if(esPrimo(j))
-					output += j + "\n";
-			}
-			return output;
-		}
-	}
+
 }

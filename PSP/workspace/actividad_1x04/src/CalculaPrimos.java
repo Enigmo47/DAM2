@@ -6,34 +6,36 @@ import java.io.PrintStream;
 
 public class CalculaPrimos {
 
-	public static void main(String[] args) {
-		String line;
-		File directorio = new File(".\\bin"); //Se indica el directorio en el que está
-		ProcessBuilder pb = new ProcessBuilder("java", "Primos");
-		pb.directory(directorio);
-		try {
-			Process hijo = pb.start();
-			BufferedReader lectorDelHijo = new BufferedReader(new InputStreamReader(hijo.getInputStream()));
-			PrintStream escritorEnHijo = new PrintStream(hijo.getOutputStream());
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Escribe un numero entero: ");
-			String linea = in.readLine();
-			while(!linea.equals("fin")) {
-				escritorEnHijo.println(linea);
-				escritorEnHijo.flush(); // Asegura que los datos se han enviado
-				if((line = lectorDelHijo.readLine()) != null) {
-					System.out.println(line);
-				}
-				System.out.println("Escribe un numero entero: ");
-				linea = in.readLine();
+	public static void main(String[] args) throws IOException, NumberFormatException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		PrintStream ps = new PrintStream(System.out);
+		String dato = in.readLine();
+		if(dato != null) {
+			int numero = Integer.parseInt(dato);
+			if(esPrimo(numero)) {
+				ps.println("El numero " + numero + " es primo.");
+				ps.flush();
 			}
-			hijo.destroy();
-			System.out.println("Finalizado");
-			
+			else {
+				ps.println("Los numeros primos menores que " + numero + " son:");
+				ps.flush();
+				for (int j = numero; j >= 1; j--) {
+					if(esPrimo(j)) {
+						ps.println(j);
+						ps.flush();
+					}
+						
+				}
+			}
 		}
-		catch (IOException ex){
-			System.out.println("Error cocurrió durante la ejecución");
-		}
+		System.exit(0);
 	}
-
+	public static boolean esPrimo(int numero) {
+		for(int i = 2; i < numero; i++) {
+			if(numero % i == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
