@@ -9,7 +9,7 @@ public class GestorVideojuegos {
 		try {
 			int opcion = -1;
 			do {
-				imprimirMenú();
+				imprimirMenu();
 				opcion = Teclado.leerEntero("Opcion: ");
 				menu(opcion);
 			}while(opcion != 0);
@@ -21,7 +21,7 @@ public class GestorVideojuegos {
 			ioe.printStackTrace();
 		}
 	}
-	public static void imprimirMenú() {
+	public static void imprimirMenu() {
 		System.out.println("0) Salir del programa.\n1) Crear un fichero de texto a partir del fichero binario.\n"
 				+ "2) Consultar todos los videojuegos del fichero de texto.\n"
 				+ "3) Eliminar un videojuego, por codigo, del fichero binario.\n"
