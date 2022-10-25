@@ -5,41 +5,100 @@ import re
 pdfFileObj = open('5_ConstitucionCASTELLANO.pdf', 'rb')
 # creating a pdf reader object 
 pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
-#number of pages in pdf file 
+#Número de páginas en el pdf
 numPaginas = int(pdfReader.numPages)
 
 listaTexto = []
 
 for i in range(numPaginas):
-    # creating a page object
+    # crea un objeto página
     pageObj = pdfReader.getPage(i) 
-    # extracting text from page 
+    # extrae el texto de cada página y lo añade como elemento de la lista listaTexto
     listaTexto.append(pageObj.extractText())
 
+#Creo un String y añado todas las paginas de la constitución que están en la lista listaTexto
 stringTexto = ""
 for pagina in listaTexto:
     stringTexto += pagina
 
 #Cuenta las palabras del texto
-result = len(re.findall(r'\w+', stringTexto))
+listaPalabras = re.findall(r'\w+', stringTexto)
+palabrasTotales = len(listaPalabras)
 
 #Cuenta palabras distintas en el texto
-setPalabras = set(re.findall(r'\w+', stringTexto))
-result2 = len(setPalabras)    
+setPalabras = set(listaPalabras)
+palabrasDiferentes = len(setPalabras)    
 
-#Cuenta cuantas veces esta cada palabra
-print("Hay " + str(result)  + " palabras")
-print("Hay " + str(result2) + " palabras distintas")
+#Cuenta cuántas veces está cada palabra
+print("Hay " + str(palabrasTotales)  + " palabras")
+print("Hay " + str(palabrasDiferentes) + " palabras distintas\n")
 
-#Cuenta cuantas veces esta cada letra del abecedario
+#Calcula cuántas veces está cada palabra diferente en el texto
+palabrasDiferentes = len(setPalabras)
+print("Top 20 número de veces que está cada palabra en el texto:")
+palabrasUsadas = {}
+i = 0
+for palabra in listaPalabras:
+    contador = listaPalabras.count(palabra)
+    palabrasUsadas[palabra] = contador
+    i += 1
+    if(i < 20):
+        print(str(palabra) + " " + str(palabrasUsadas[palabra]))
+
+
+
+#Calcula la longitus media de las palabras
+longitudTotal = 0
+for palabra in setPalabras:
+    longitudTotal += len(palabra)
+longitudMedia = longitudTotal / palabrasDiferentes
+print("Longitud media de las palabras: " + str(longitudMedia) + "\n")
+
+#Calcula el porcentaje de cada palabra
+palabrasPorcetaje = {}
+print("Porcentaje de palabras usadas en el texto:")
+i = 0
+for palabra in palabrasUsadas:
+    porcentaje = palabrasUsadas[palabra] * 100  / palabrasTotales
+    palabrasPorcetaje[palabra] = porcentaje
+    i += 1
+    if(i < 20):
+        print(str(palabra) + " " + str(palabrasUsadas[palabra]))
+
+#Cuenta cuántas veces está cada letra del abecedario
 abecedario = string.ascii_lowercase
 dicts = {}
 
+#Cuenta cuántas veces está cada letra y añade el valor a la lista dicts junto con su letra correspondiente
 for letra in abecedario:
     contador = stringTexto.count(letra)
-    #print(str(letra) + ": " + str(contador))
     dicts[letra] = contador
-#diccionarioOrdenado = sorted(dicts)
-print(diccionarioOrdenado)
+
+#Ordena la lista dicts por valor decreciente, sacado las letras mas usadas antes
+sortedDicts = dict(sorted(dicts.items(), key=lambda item:item[1], reverse=True))
+print("Letras usadas por orden decrecente:\n" + str(sortedDicts) + "\n")
+
+#Calcula cuantas letras hay en total
+contadorLetras = 0
+for palabra in listaPalabras:
+    contadorLetras += len(palabra)
+#print("Letras usadas en total: " + str(contadorLetras))
+
+#Calcula el porcentaje de cada letra
+letrasPorcetaje = {}
+print("Porcentaje de letras en el texto:")
+i = 0
+for letra in sortedDicts:
+    porcentaje = sortedDicts[letra] * 100  / contadorLetras
+    letrasPorcetaje[letra] = porcentaje
+    i += 1
+    if(i < 20):
+        print(str(letra) + " " + str(sortedDicts[letra]))
+
+
+#Crea archivo Json
+fileJson = open(r"./ConstitucionCASTELLANO.json", "a")
+fileJson.writelines(stringTexto)
+pdfFileObj.close()
 
 

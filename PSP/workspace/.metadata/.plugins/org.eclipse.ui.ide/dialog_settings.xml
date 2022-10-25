@@ -6,9 +6,22 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="D:\DAM2\PSP\workspace\actividad_1x09_inventada"/>
+			<item value="D:\DAM2\PSP\workspace\actividad_1x08_inventada"/>
+			<item value="D:\DAM2\PSP\workspace\actividad_1x07_inventada"/>
+			<item value="D:\DAM2\PSP\workspace\actividad_1x06_inventada"/>
+			<item value="D:\DAM2\AD\workspace"/>
 			<item value="D:\DAM2\PSP\workspace\actividad_1x04"/>
 			<item value="D:\Marta_Lainez_DAM2\PSP\workspace\Unidad1"/>
 			<item value="C:\Users\generico\Documents\DAM 2 MARTA\PSP\workspace\Ejemplos Java"/>
+		</list>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="332"/>
+		<item key="DIALOG_Y_ORIGIN" value="313"/>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
 		</list>
 	</section>
 </section>
