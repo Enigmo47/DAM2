@@ -3,15 +3,16 @@ package com.example.listview;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-        //crear un array de Strings llamado grupos
+        private String grupos[]= {"DAM2","ESO1","ESO2","ESO3","ESO4","Batch1"};
+        private int alumnos[]={9,6,44,5,16,22};
 //crear un array de Strings llamado alumnos
-//crear una variable tv1 de tipo TextView
-//crear una variable lv1 de tipo ListView
     private ListView lv1;
     private TextView tv1;
 
@@ -21,15 +22,13 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
             lv1=(ListView) findViewById(R.id.lv1);
             tv1=(TextView) findViewById(R.id.tv1);
-            //asignar a la variable lv1 el listview
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,grupos);
             lv1.setAdapter(adapter);
             lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView adapterView, View view, int i, long l) {
-//Mostrar en el textview el grupo seleccionado y su número de alumnos
+                    tv1.setText("La clase "+grupos[i]+" tiene "+ alumnos[i]);
                 }
             });
         }
     }
-}
