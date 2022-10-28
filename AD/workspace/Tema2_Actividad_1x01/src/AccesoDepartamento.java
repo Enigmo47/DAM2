@@ -14,8 +14,9 @@ import entrada.Teclado;
 public class AccesoDepartamento {
 	public static final String URL = "jdbc:sqlite:db\\\\personal.db";
 	public static final String DRIVER = "org.sqlite.JDBC";
+	
 	/*
-	 * input: Nombre y ubicación del departamento
+	 * Input: Nombre y ubicación del departamento
 	 * Descripción: Crea la conexión con la base de datos e inserta un nuevo departamento con el nombre y ubicación
 	 * que entra por parámetros.
 	 */
@@ -24,9 +25,9 @@ public class AccesoDepartamento {
 		try {
 			Class.forName(DRIVER);
 			conexion = DriverManager.getConnection(URL);
-			System.out.println("Conectado");
 			String sentenciaInsertar = "INSERT INTO departamento (nombre, ubicacion) VALUES ('" + nombre + "', '" + ubicacion + "')";
 			Statement sentencia = conexion.createStatement();
+			sentencia.executeUpdate(sentenciaInsertar);
 		}
 		finally {
 			if (conexion != null) {
@@ -34,6 +35,11 @@ public class AccesoDepartamento {
 			}
 		}
 	}
+	
+	/*
+	 * Descripción: Crea la conexión con la base de datos y lee todos sus registros pasandolos a una lista.
+	 * Output: Lista de departamentos
+	 */
 	public static List<Departamento> consultarDepartamentos() throws ClassNotFoundException, SQLException {
 		Connection conexion = null;
 		List<Departamento> listaDepartamentos = new ArrayList<>();
@@ -68,6 +74,12 @@ public class AccesoDepartamento {
 		return null;
 	}
 	*/
+	
+	/*
+	 * Input: código de departamento
+	 * Descripción: Crea la conexión con la base de datos y busca el departamento de la base con ese código
+	 * Output: Devuelve el departamento con ese código
+	 */
 	public static Departamento consultar1Departamento(int codigo) throws ClassNotFoundException, SQLException {
 		Connection conexion = null;
 		try {
@@ -89,6 +101,13 @@ public class AccesoDepartamento {
 		}
 		return null;
 	}
+
+	/*
+	 * Input: código, nombre y ubicación del departamento de la base de datos a actualizar
+	 * Descripción: Crea la conexión con la base de datos y busca actualiza los valores del departamento con el código por parámetro con
+	 * el nuevo nombre y ubicación introducidos por parámetro
+	 * Output: Devuelve el numero de registros actualizados
+	 */
 	public static int actualizarDepartamento(int codigo, String nombre, String ubicacion) throws ClassNotFoundException, SQLException {
 		Connection conexion = null;
 		try {
@@ -105,6 +124,13 @@ public class AccesoDepartamento {
 			} 
 		}
 	}
+	
+	/*
+	 * Input: código de departamento
+	 * Descripción: Crea la conexión con la base de datos y busca el departamento con el código introducido por parámetro para eliminar ese
+	 * departamento
+	 * Output: Devuelve el numero de registros borrados
+	 */
 	public static int eliminarDepartamento(int codigo) throws ClassNotFoundException, SQLException{
 		Connection conexion = null;
 		try {

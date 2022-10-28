@@ -18,9 +18,9 @@ public class Departamento {
 	@Override
 	public String toString() {
 		return 
-			"Departamento [C�digo = " + this.codigo + 
+			"Departamento [Código = " + this.codigo + 
 			", Nombre = " + this.nombre + 
-			", Ubicaci�n = " + this.ubicacion + 
+			", Ubicación = " + this.ubicacion + 
 			"]";
 	}
 	public int getCodigo() {

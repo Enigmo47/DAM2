@@ -56,7 +56,7 @@ print("Longitud media de las palabras: " + str(longitudMedia) + "\n")
 
 #Calcula el porcentaje de cada palabra
 palabrasPorcetaje = {}
-print("Porcentaje de palabras usadas en el texto:")
+print("Porcentaje de las top 20 palabras más usadas en el texto:")
 i = 0
 for palabra in palabrasUsadas:
     porcentaje = palabrasUsadas[palabra] * 100  / palabrasTotales
@@ -86,7 +86,7 @@ for palabra in listaPalabras:
 
 #Calcula el porcentaje de cada letra
 letrasPorcetaje = {}
-print("Porcentaje de letras en el texto:")
+print("Porcentaje de las top 20 letras más usadas en el texto:")
 i = 0
 for letra in sortedDicts:
     porcentaje = sortedDicts[letra] * 100  / contadorLetras

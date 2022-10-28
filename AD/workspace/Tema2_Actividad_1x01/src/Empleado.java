@@ -1,8 +1,9 @@
 
 public class Empleado {
-	private int codigo, salario, codigoDepartamento;
+	private int codigo, codigoDepartamento;
+	private double salario;
 	private String nombre, fechaAlta;
-	public Empleado(int codigo, int salario, int codigoDepartamento, String nombre, String fechaAlta) {
+	public Empleado(int codigo, String nombre, String fechaAlta, double salario, int codigoDepartamento) {
 		this.codigo = codigo;
 		this.salario = salario;
 		this.codigoDepartamento = codigoDepartamento;
@@ -11,9 +12,8 @@ public class Empleado {
 	}
 	@Override
 	public String toString() {
-		return "Empleado [codigo=" + codigo + ", salario=" + salario + ", codigoDepartamento=" + codigoDepartamento
+		return "Empleado [codigo=" + codigo + ", codigoDepartamento=" + codigoDepartamento + ", salario=" + salario
 				+ ", nombre=" + nombre + ", fechaAlta=" + fechaAlta + "]";
-	}
-	
+	}	
 	
 }
