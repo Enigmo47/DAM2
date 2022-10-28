@@ -23,5 +23,8 @@ public class Departamento {
 			", Ubicaci�n = " + this.ubicacion + 
 			"]";
 	}
+	public int getCodigo() {
+		return codigo;
+	}
 	
 }
