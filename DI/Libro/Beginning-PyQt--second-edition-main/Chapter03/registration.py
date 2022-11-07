@@ -83,7 +83,8 @@ class NewUserDialog(QDialog):
         """Check if user information is entered and correct. 
         If so, append username and password text to file."""
         name_text = self.name_edit.text()
-        pswd_text = self.new_pswd_edit.text()
+        pswd_text = str(hash(self.new_pswd_edit.text()))
+        #hash_object = hashlib.sha256(b'Hello World')
         confirm_text = self.confirm_edit.text()
 
         if name_text == "" or pswd_text == "":

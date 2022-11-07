@@ -9,7 +9,8 @@ from PyQt6.QtWidgets import (QApplication, QWidget, QLabel,
      QLineEdit, QPushButton, QCheckBox, QMessageBox)
 from PyQt6.QtGui import QFont, QPixmap
 from PyQt6.QtCore import Qt
-from registration import NewUserDialog     
+from registration import NewUserDialog
+
 
 class LoginWindow(QWidget):
     
@@ -87,6 +88,7 @@ class LoginWindow(QWidget):
             # Collect user and password information
             username = self.username_edit.text()
             password = self.password_edit.text()
+           
 
             if (username, password) in users.items():
                 QMessageBox.information(self, "Login Successful!", 
@@ -94,6 +96,9 @@ class LoginWindow(QWidget):
                     QMessageBox.StandardButton.Ok)
                 self.login_is_successful = True
                 self.close() # Close the login window
+                QMessageBox.information(self, "Genial", 
+                    "Yuju!", QMessageBox.StandardButton.Ok, 
+                    QMessageBox.StandardButton.Ok)
                 self.openApplicationWindow()
             else:
                 QMessageBox.warning(self, "Error Message",
